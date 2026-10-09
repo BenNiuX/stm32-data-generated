@@ -499,6 +499,28 @@ pub mod regs {
     #[derive(Copy, Clone, Eq, PartialEq)]
     pub struct Cr2(pub u32);
     impl Cr2 {
+        #[doc = "Synchronous slave mode enable"]
+        #[inline(always)]
+        pub const fn slven(&self) -> bool {
+            let val = (self.0 >> 0usize) & 0x01;
+            val != 0
+        }
+        #[doc = "Synchronous slave mode enable"]
+        #[inline(always)]
+        pub fn set_slven(&mut self, val: bool) {
+            self.0 = (self.0 & !(0x01 << 0usize)) | (((val as u32) & 0x01) << 0usize);
+        }
+        #[doc = "NSS pin enable"]
+        #[inline(always)]
+        pub const fn dis_nss(&self) -> bool {
+            let val = (self.0 >> 3usize) & 0x01;
+            val != 0
+        }
+        #[doc = "NSS pin enable"]
+        #[inline(always)]
+        pub fn set_dis_nss(&mut self, val: bool) {
+            self.0 = (self.0 & !(0x01 << 3usize)) | (((val as u32) & 0x01) << 3usize);
+        }
         #[doc = "7-bit Address Detection/4-bit Address Detection"]
         #[inline(always)]
         pub const fn addm(&self) -> super::vals::Addm {
@@ -707,6 +729,8 @@ pub mod regs {
     impl core::fmt::Debug for Cr2 {
         fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
             f.debug_struct("Cr2")
+                .field("slven", &self.slven())
+                .field("dis_nss", &self.dis_nss())
                 .field("addm", &self.addm())
                 .field("lbdl", &self.lbdl())
                 .field("lbdie", &self.lbdie())
@@ -731,7 +755,7 @@ pub mod regs {
     #[cfg(feature = "defmt")]
     impl defmt::Format for Cr2 {
         fn format(&self, f: defmt::Formatter) {
-            defmt :: write ! (f , "Cr2 {{ addm: {:?}, lbdl: {:?}, lbdie: {=bool:?}, lbcl: {=bool:?}, cpha: {:?}, cpol: {:?}, clken: {=bool:?}, stop: {:?}, linen: {=bool:?}, swap: {=bool:?}, rxinv: {=bool:?}, txinv: {=bool:?}, datainv: {=bool:?}, msbfirst: {:?}, abren: {=bool:?}, abrmod: {:?}, rtoen: {=bool:?}, add: {=u8:?} }}" , self . addm () , self . lbdl () , self . lbdie () , self . lbcl () , self . cpha () , self . cpol () , self . clken () , self . stop () , self . linen () , self . swap () , self . rxinv () , self . txinv () , self . datainv () , self . msbfirst () , self . abren () , self . abrmod () , self . rtoen () , self . add ())
+            defmt :: write ! (f , "Cr2 {{ slven: {=bool:?}, dis_nss: {=bool:?}, addm: {:?}, lbdl: {:?}, lbdie: {=bool:?}, lbcl: {=bool:?}, cpha: {:?}, cpol: {:?}, clken: {=bool:?}, stop: {:?}, linen: {=bool:?}, swap: {=bool:?}, rxinv: {=bool:?}, txinv: {=bool:?}, datainv: {=bool:?}, msbfirst: {:?}, abren: {=bool:?}, abrmod: {:?}, rtoen: {=bool:?}, add: {=u8:?} }}" , self . slven () , self . dis_nss () , self . addm () , self . lbdl () , self . lbdie () , self . lbcl () , self . cpha () , self . cpol () , self . clken () , self . stop () , self . linen () , self . swap () , self . rxinv () , self . txinv () , self . datainv () , self . msbfirst () , self . abren () , self . abrmod () , self . rtoen () , self . add ())
         }
     }
     #[doc = "Control register 3"]
