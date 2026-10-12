@@ -1456,6 +1456,17 @@ pub mod regs {
         pub fn set_eobf(&mut self, val: bool) {
             self.0 = (self.0 & !(0x01 << 12usize)) | (((val as u32) & 0x01) << 12usize);
         }
+        #[doc = "SPI slave underrun error flag"]
+        #[inline(always)]
+        pub const fn udr(&self) -> bool {
+            let val = (self.0 >> 13usize) & 0x01;
+            val != 0
+        }
+        #[doc = "SPI slave underrun error flag"]
+        #[inline(always)]
+        pub fn set_udr(&mut self, val: bool) {
+            self.0 = (self.0 & !(0x01 << 13usize)) | (((val as u32) & 0x01) << 13usize);
+        }
         #[doc = "Auto baud rate error"]
         #[inline(always)]
         pub const fn abre(&self) -> bool {
@@ -1577,6 +1588,17 @@ pub mod regs {
         pub fn set_rxff(&mut self, val: bool) {
             self.0 = (self.0 & !(0x01 << 24usize)) | (((val as u32) & 0x01) << 24usize);
         }
+        #[doc = "Transmission complete before guard time flag"]
+        #[inline(always)]
+        pub const fn tcbgt(&self) -> bool {
+            let val = (self.0 >> 25usize) & 0x01;
+            val != 0
+        }
+        #[doc = "Transmission complete before guard time flag"]
+        #[inline(always)]
+        pub fn set_tcbgt(&mut self, val: bool) {
+            self.0 = (self.0 & !(0x01 << 25usize)) | (((val as u32) & 0x01) << 25usize);
+        }
         #[doc = "RXFIFO threshold flag"]
         #[inline(always)]
         pub const fn rxft(&self) -> bool {
@@ -1622,6 +1644,7 @@ pub mod regs {
                 .field("cts", &self.cts())
                 .field("rtof", &self.rtof())
                 .field("eobf", &self.eobf())
+                .field("udr", &self.udr())
                 .field("abre", &self.abre())
                 .field("abrf", &self.abrf())
                 .field("busy", &self.busy())
@@ -1633,6 +1656,7 @@ pub mod regs {
                 .field("reack", &self.reack())
                 .field("txfe", &self.txfe())
                 .field("rxff", &self.rxff())
+                .field("tcbgt", &self.tcbgt())
                 .field("rxft", &self.rxft())
                 .field("txft", &self.txft())
                 .finish()
@@ -1641,7 +1665,7 @@ pub mod regs {
     #[cfg(feature = "defmt")]
     impl defmt::Format for Isr {
         fn format(&self, f: defmt::Formatter) {
-            defmt :: write ! (f , "Isr {{ pe: {=bool:?}, fe: {=bool:?}, ne: {=bool:?}, ore: {=bool:?}, idle: {=bool:?}, rxne: {=bool:?}, tc: {=bool:?}, txe: {=bool:?}, lbd: {=bool:?}, ctsif: {=bool:?}, cts: {=bool:?}, rtof: {=bool:?}, eobf: {=bool:?}, abre: {=bool:?}, abrf: {=bool:?}, busy: {=bool:?}, cmf: {=bool:?}, sbkf: {=bool:?}, rwu: {:?}, wuf: {=bool:?}, teack: {=bool:?}, reack: {=bool:?}, txfe: {=bool:?}, rxff: {=bool:?}, rxft: {=bool:?}, txft: {=bool:?} }}" , self . pe () , self . fe () , self . ne () , self . ore () , self . idle () , self . rxne () , self . tc () , self . txe () , self . lbd () , self . ctsif () , self . cts () , self . rtof () , self . eobf () , self . abre () , self . abrf () , self . busy () , self . cmf () , self . sbkf () , self . rwu () , self . wuf () , self . teack () , self . reack () , self . txfe () , self . rxff () , self . rxft () , self . txft ())
+            defmt :: write ! (f , "Isr {{ pe: {=bool:?}, fe: {=bool:?}, ne: {=bool:?}, ore: {=bool:?}, idle: {=bool:?}, rxne: {=bool:?}, tc: {=bool:?}, txe: {=bool:?}, lbd: {=bool:?}, ctsif: {=bool:?}, cts: {=bool:?}, rtof: {=bool:?}, eobf: {=bool:?}, udr: {=bool:?}, abre: {=bool:?}, abrf: {=bool:?}, busy: {=bool:?}, cmf: {=bool:?}, sbkf: {=bool:?}, rwu: {:?}, wuf: {=bool:?}, teack: {=bool:?}, reack: {=bool:?}, txfe: {=bool:?}, rxff: {=bool:?}, tcbgt: {=bool:?}, rxft: {=bool:?}, txft: {=bool:?} }}" , self . pe () , self . fe () , self . ne () , self . ore () , self . idle () , self . rxne () , self . tc () , self . txe () , self . lbd () , self . ctsif () , self . cts () , self . rtof () , self . eobf () , self . udr () , self . abre () , self . abrf () , self . busy () , self . cmf () , self . sbkf () , self . rwu () , self . wuf () , self . teack () , self . reack () , self . txfe () , self . rxff () , self . tcbgt () , self . rxft () , self . txft ())
         }
     }
     #[doc = "Prescaler register"]

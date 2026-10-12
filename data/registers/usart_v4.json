@@ -781,6 +781,12 @@
         "bit_size": 1
       },
       {
+        "name": "UDR",
+        "description": "SPI slave underrun error flag",
+        "bit_offset": 13,
+        "bit_size": 1
+      },
+      {
         "name": "ABRE",
         "description": "Auto baud rate error",
         "bit_offset": 14,
@@ -845,6 +851,12 @@
         "name": "RXFF",
         "description": "RXFIFO Full",
         "bit_offset": 24,
+        "bit_size": 1
+      },
+      {
+        "name": "TCBGT",
+        "description": "Transmission complete before guard time flag",
+        "bit_offset": 25,
         "bit_size": 1
       },
       {
